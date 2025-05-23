@@ -1,0 +1,527 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Colors from skel.html */
+  --color-taupe: #A09B8C;
+  --color-rust: #C89B3C; /* This will be the primary gold */
+  --color-cream: #F0E6D2; /* This will be the primary text/foreground */
+  --color-dark: #010A13;  /* This will be the primary background */
+  --color-navy: #001021; /* Can be used for darker elements or accents */
+  --color-rust-glow: rgba(200, 155, 60, 0.4);
+  --color-error: #ff4655;
+
+  /* Rank colors from skel.html */
+  --color-iron: #51575C;
+  --color-bronze: #A3785E;
+  --color-silver: #9CA1B4;
+  --color-gold: #E6BE5E; /* This is the specific gold for the rank, distinct from primary rust */
+  --color-platinum: #3A9298;
+  --color-emerald: #16B77A;
+  --color-diamond: #576BCE;
+  --color-master: #9D4A8F;
+  --color-grandmaster: #D03931;
+  --color-challenger: #00A8C0;
+
+  /* Mapped to new scheme */
+  --foreground-rgb: 240, 230, 210; /* from --color-cream */
+  --background-start-rgb: 1, 10, 19; /* from --color-dark */
+  --background-end-rgb: 1, 10, 19;   /* from --color-dark */
+
+  --color-primary-gold: var(--color-rust); /* Use rust as the main gold accent */
+  --color-dark-blue: var(--color-dark);    /* Use dark as the main background */
+  --color-mid-blue: var(--color-navy);     /* Use navy for container backgrounds or slightly lighter elements */
+  --color-light-grey: var(--color-cream);  /* Use cream for text */
+  /* --color-taupe is already defined */
+  --color-error-red: var(--color-error);
+}
+
+body {
+  color: var(--color-cream); /* Updated to use --color-cream */
+  background-color: var(--color-dark); /* Updated to use --color-dark */
+  /* Consider adding the radial gradient from skel.html if desired */
+  /* background-image: radial-gradient(circle at 50% 50%, #071428 0%, #010A13 100%); */
+  font-family: 'Montserrat', sans-serif; /* Match skel.html font */
+}
+
+/* Custom global styles based on skel.html and image */
+.title {
+  color: var(--color-primary-gold); /* Uses --color-rust */
+  text-shadow: 0 0 10px var(--color-primary-gold);
+}
+
+.outer-container {
+  position: relative;
+  padding: 1px; /* Adjusted to better match skel.html border illusion */
+  border-radius: 17px; /* skel.html main-container is 16px, outer glow is slightly larger */
+  /* The gradient border effect in skel.html is more complex, often achieved by ::before on main-container */
+  /* This is a simplified version. For exact match, main-container::before style is needed */
+  box-shadow: 0 0 15px var(--color-rust-glow); /* Outer glow using rust-glow */
+  /* background: transparent; remove direct background if main-container handles it */
+}
+
+.main-container {
+  /* background-color: var(--color-mid-blue); */ /* Replaced by gradient */
+  background: linear-gradient(135deg, rgba(1, 10, 19, 0.9) 0%, rgba(0, 16, 33, 0.95) 100%); /* from skel.html */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              0 0 0 1px rgba(160, 155, 140, 0.1),
+              inset 0 1px 1px rgba(255, 255, 255, 0.05); /* from skel.html */
+  backdrop-filter: blur(10px); /* from skel.html */
+  border-radius: 16px; /* from skel.html */
+  border: 1px solid rgba(160, 155, 140, 0.2); /* from skel.html (uses --color-taupe alpha) */
+  position: relative;
+  overflow: hidden; /* from skel.html */
+}
+
+.main-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-rust), transparent);
+    opacity: 0.7;
+}
+
+
+/* Decorative corners */
+.corner-decoration {
+  position: absolute;
+  width: 20px; /* Adjust as needed */
+  height: 20px; /* Adjust as needed */
+  border-color: var(--color-primary-gold); /* Uses --color-rust */
+  border-style: solid;
+}
+.top-left {
+  top: -2px;
+  left: -2px;
+  border-width: 2px 0 0 2px;
+  border-top-left-radius: 8px;
+}
+.top-right {
+  top: -2px;
+  right: -2px;
+  border-width: 2px 2px 0 0;
+  border-top-right-radius: 8px;
+}
+.bottom-left {
+  bottom: -2px;
+  left: -2px;
+  border-width: 0 0 2px 2px;
+  border-bottom-left-radius: 8px;
+}
+.bottom-right {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 2px 2px 0;
+  border-bottom-right-radius: 8px;
+}
+
+.summoner-input {
+  /* background-color: rgba(10, 14, 19, 0.7); */
+  background: linear-gradient(180deg, rgba(1, 10, 19, 0.9) 0%, rgba(0, 16, 33, 0.95) 100%); /* from skel.html */
+  border: 1px solid var(--color-taupe); /* from skel.html */
+  color: var(--color-cream); /* from skel.html */
+  transition: all 0.3s ease; /* from skel.html */
+  border-radius: 8px; /* from skel.html */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.05); /* from skel.html */
+}
+.summoner-input:focus {
+  border-color: var(--color-rust); /* from skel.html */
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--color-rust-glow), inset 0 1px 1px rgba(255, 255, 255, 0.05); /* from skel.html, adapted */
+}
+.summoner-input::placeholder {
+    color: var(--color-taupe);
+    opacity: 0.7;
+}
+.summoner-input.input-error {
+  border-color: var(--color-error-red) !important;
+  box-shadow: 0 0 8px rgba(255, 70, 85, 0.5);
+}
+
+/* Custom Select (Dropdown) */
+.custom-select {
+  position: relative;
+}
+.select-box {
+  /* background-color: rgba(10, 14, 19, 0.7); */
+  background: linear-gradient(180deg, rgba(1, 10, 19, 0.9) 0%, rgba(0, 16, 33, 0.95) 100%); /* from skel.html */
+  border: 1px solid var(--color-taupe); /* from skel.html */
+  color: var(--color-cream); /* from skel.html */
+  padding: 12px 16px; /* from skel.html */
+  border-radius: 8px; /* from skel.html */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease; /* from skel.html */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.05); /* from skel.html */
+}
+.select-box:hover, .select-box.focused {
+  border-color: var(--color-rust); /* from skel.html */
+  box-shadow: 0 2px 12px var(--color-rust-glow), inset 0 1px 1px rgba(255, 255, 255, 0.05); /* from skel.html, adapted */
+}
+.select-box.input-error {
+  border-color: var(--color-error-red) !important;
+  box-shadow: 0 0 8px rgba(255, 70, 85, 0.5);
+}
+.arrow {
+  transition: transform 0.3s;
+  color: var(--color-taupe); /* skel.html doesn't explicitly color arrow, but taupe is common for icons */
+}
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  /* background-color: var(--color-mid-blue); */
+  background: linear-gradient(180deg, rgba(1, 10, 19, 0.95) 0%, rgba(0, 16, 33, 0.98) 100%); /* from skel.html */
+  border: 1px solid var(--color-taupe); /* from skel.html */
+  border-top: none;
+  border-radius: 0 0 8px 8px; /* from skel.html */
+  z-index: 10;
+  max-height: 240px; /* from skel.html */
+  overflow-y: auto;
+  display: none; /* Initially hidden, controlled by JS/React state */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* from skel.html */
+  backdrop-filter: blur(10px); /* from skel.html */
+}
+.option {
+  padding: 12px 16px; /* from skel.html */
+  cursor: pointer;
+  color: var(--color-cream); /* from skel.html */
+  transition: all 0.2s ease; /* from skel.html */
+  border-bottom: 1px solid rgba(160, 155, 140, 0.1); /* from skel.html (taupe alpha) */
+}
+.option:last-child {
+    border-bottom: none;
+}
+.option:hover {
+  background-color: rgba(192, 155, 60, 0.2); /* from skel.html (rust alpha) */
+  color: var(--color-rust); /* from skel.html */
+}
+
+/* Toggle Buttons */
+.toggle-btn {
+  /* background-color: rgba(10, 14, 19, 0.7); */
+  background: linear-gradient(180deg, rgba(1, 10, 19, 0.9) 0%, rgba(0, 16, 33, 0.95) 100%); /* from skel.html */
+  border: 1px solid var(--color-taupe); /* from skel.html */
+  color: var(--color-cream); /* from skel.html */
+  display: flex;
+  flex-direction: column; /* Stack icon and text */
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease; /* from skel.html */
+  min-height: 100px; /* Ensure consistent height */
+  padding: 16px; /* from skel.html */
+  border-radius: 10px; /* from skel.html */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.05); /* from skel.html */
+  position: relative; /* from skel.html */
+  overflow: hidden; /* from skel.html */
+}
+
+.toggle-btn::after { /* from skel.html */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.toggle-btn:hover::after { /* from skel.html */
+    opacity: 1;
+}
+
+.toggle-btn:hover {
+  /* border-color: var(--color-primary-gold); */
+  /* color: var(--color-primary-gold); */
+  transform: translateY(-2px); /* from skel.html */
+  border-color: var(--color-rust); /* from skel.html */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(200, 155, 60, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.07); /* from skel.html */
+}
+.toggle-btn.active {
+  /* background-color: rgba(200, 155, 60, 0.2); */
+  background: linear-gradient(180deg, rgba(200, 155, 60, 0.9) 0%, rgba(170, 132, 50, 0.95) 100%); /* from skel.html */
+  border-color: var(--color-rust); /* from skel.html */
+  color: var(--color-cream); /* Text color on active should remain cream or as defined in skel */
+  box-shadow: 0 4px 16px var(--color-rust-glow), inset 0 1px 3px rgba(255, 255, 255, 0.2); /* from skel.html, adapted */
+}
+.toggle-btn .icon {
+  margin-bottom: 10px; /* from skel.html */
+  transition: all 0.3s ease; /* from skel.html */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* from skel.html */
+}
+.toggle-btn:hover .icon { /* from skel.html */
+    transform: scale(1.05);
+}
+
+.toggle-btn.active .icon { /* from skel.html */
+    filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.3));
+}
+
+.toggle-btn .queue-icon {
+  width: 32px; /* Adjust as needed */
+  height: 32px;
+  stroke-width: 1.5; /* Thinner lines for icons */
+}
+
+/* Calculate Button */
+.calculate-btn {
+  /* background-color: var(--color-primary-gold); */
+  background: linear-gradient(180deg, rgba(200, 155, 60, 0.9) 0%, rgba(170, 132, 50, 0.95) 100%); /* from skel.html */
+  color: var(--color-dark-blue); /* Dark text on gold button, consistent with skel.html intent */
+  transition: all 0.3s ease; /* from skel.html */
+  text-transform: uppercase; /* Added for style */
+  letter-spacing: 0.05em; /* Added for style */
+  border-radius: 10px; /* from skel.html */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.2); /* from skel.html */
+  position: relative; /* from skel.html */
+  overflow: hidden; /* from skel.html */
+  border: 1px solid rgba(200, 155, 60, 0.6); /* from skel.html */
+}
+
+.calculate-btn::before { /* from skel.html */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.calculate-btn:hover::before { /* from skel.html */
+    left: 100%;
+}
+
+.calculate-btn:hover {
+  /* background-color: #e0ac4c; */
+  background: linear-gradient(180deg, rgba(220, 175, 70, 0.9) 0%, rgba(190, 152, 60, 0.95) 100%); /* from skel.html */
+  transform: translateY(-3px); /* from skel.html */
+  box-shadow: 0 8px 24px var(--color-rust-glow), inset 0 1px 3px rgba(255, 255, 255, 0.3); /* from skel.html, adapted */
+}
+.calculate-btn:active {
+  transform: translateY(-1px); /* from skel.html */
+  box-shadow: 0 4px 16px var(--color-rust-glow); /* from skel.html, adapted */
+}
+
+/* Result Container */
+.result-container {
+  height: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* from skel.html */
+}
+.result-container.show {
+  height: auto; /* Allow content to define height, or set specific as in skel.html if fixed */
+  /* height: 140px; */ /* from skel.html - can be restored if fixed height is desired */
+  padding-top: 1.5rem; /* Add some spacing if height is auto */
+  padding-bottom: 0.5rem;
+}
+
+.result {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* from skel.html */
+  background: linear-gradient(135deg, rgba(1, 10, 19, 0.7) 0%, rgba(0, 16, 33, 0.8) 100%); /* from skel.html */
+  padding: 20px; /* from skel.html */
+  border-radius: 12px; /* from skel.html */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05); /* from skel.html */
+  border: 1px solid rgba(160, 155, 140, 0.2); /* from skel.html (taupe alpha) */
+}
+.result.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.result-number {
+  text-shadow: 0 0 10px var(--color-rust-glow); /* from skel.html */
+  background: linear-gradient(to bottom, var(--color-rust), #A67D2E); /* from skel.html */
+  -webkit-background-clip: text;
+  background-clip: text; /* Standard property */
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+/* Rank Comparison Container */
+.rank-comparison-container {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s; /* Delay to start after result appears */
+  margin-top: 2rem;
+}
+.rank-comparison-container.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rank-comparison {
+  /* Styles for this container are inherited from .main-container if nested within another .outer-container */
+  /* If it's standalone, you might want to replicate .main-container styles here or create a new variant */
+  /* For now, leaving it empty as its appearance depends on its placement in page.tsx */
+}
+
+.section-title {
+  color: var(--color-cream);
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.rank-bar-container {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.rank-bar {
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+  /* Gradient will be set by inline style */
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.your-rank-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 28px; /* Taller to stand out */
+  background-color: var(--color-cream);
+  border: 2px solid var(--color-dark);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Teardrop shape */
+  transform-origin: bottom center;
+  box-shadow: 0 0 8px rgba(240,230,210,0.7);
+  z-index: 2;
+}
+
+.your-rank-label {
+  position: absolute;
+  bottom: 120%; /* Position above the marker */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-dark);
+  color: var(--color-rust);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.rank-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.rank-icon-container {
+  position: relative;
+  width: 36px; /* Increased size */
+  height: 36px;
+  margin-bottom: 4px;
+}
+
+.rank-icon-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid; /* Color set by inline style */
+  /* box-shadow set by inline style */
+  opacity: 0.5;
+}
+
+.rank-emblem {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem; /* Adjusted for new size */
+  /* color set by inline style or specific class */
+  /* background-image: url('/path-to-emblem-sprites.png'); /* For image-based emblems */
+  /* background-size: cover; */
+  border-radius: 50%; /* If using text/shortName */
+  background-color: rgba(0,0,0,0.3); /* Darker background for text emblem */
+}
+
+.rank-emblem-inner {
+  /* This class is primarily for targeting the text span inside .rank-emblem */
+  /* Specific color overrides for certain ranks (Gold, Challenger) are handled below */
+}
+
+/* Specific emblem styles if needed, e.g. for Gold, Challenger text color */
+.rank-emblem.gold .rank-emblem-inner,
+.rank-emblem.challenger .rank-emblem-inner {
+  color: var(--color-dark) !important; /* Ensure dark text on light emblems */
+}
+
+
+.rank-name {
+  font-size: 0.7rem;
+  font-weight: 500;
+  /* color set by inline style */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  margin-top: 2px;
+}
+
+.rank-mmr {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  /* color set by inline style */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+}
+
+.current-rank-marker .rank-icon-container .rank-icon-bg {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+.current-rank-marker .rank-name {
+  font-weight: 700;
+}
+
+
+/* Error Message */
+.error-message {
+  background-color: rgba(255, 70, 85, 0.1);
+  border: 1px solid var(--color-error-red);
+  color: var(--color-error-red);
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.error-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.error-message svg {
+  margin-right: 0.5rem;
+  flex-shrink: 0; /* Prevent SVG from shrinking */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

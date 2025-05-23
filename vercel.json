@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "rootDirectory": ".",
   "engines": {
     "node": "23.7.0"
   }

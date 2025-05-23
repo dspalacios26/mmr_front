@@ -107,7 +107,7 @@ export default function HomePage() {
   };
 
   const validateInputs = (): boolean => {
-    let errors: string[] = [];
+    const errors: string[] = [];
     let summonerInputError = false;
     let regionSelectError = false;
 
@@ -136,23 +136,7 @@ export default function HomePage() {
     }
 
     if (errors.length > 0) {
-      let errorMsg = "Please ";
-      if (summonerInputError && errors.length > 1 && (regionSelectError || !activeQueue)) errorMsg += `${errors[0]}, `;
-      else if (summonerInputError) errorMsg += `${errors[0]}`;
-
-      if (regionSelectError && errors.length > 1 && !summonerInputError && !activeQueue) errorMsg += `${errors[errors.indexOf("select a region")]}, and `;
-      else if (regionSelectError && errors.length > 1 && !summonerInputError) errorMsg += `${errors[errors.indexOf("select a region")]}, and `;
-      else if (regionSelectError) errorMsg += `${errors[errors.indexOf("select a region")]}`;
-
-
-      if (!activeQueue && errors.length > 1 && (summonerInputError || regionSelectError)) errorMsg += `and ${errors[errors.length -1]}`;
-      else if (!activeQueue) errorMsg += `${errors[errors.length -1]}`;
-
-
-      // Simplified error message construction
-      if (errors.length > 0) {
-        setErrorMessage(`Please ${errors.join(', ').replace(/, ([^,]*)$/, ' and $1')}.`);
-      }
+      setErrorMessage(`Please ${errors.join(', ').replace(/, ([^,]*)$/, ' and $1')}.`);
       return false;
     }
     return true;

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Forward the request to the Python backend
-    // Ensure your Python backend is running on http://localhost:8000
+    // Using the deployed backend on Render
     const backendResponse = await fetch('https://mmr-backnd.vercel.app', {
       method: 'POST',
       headers: {

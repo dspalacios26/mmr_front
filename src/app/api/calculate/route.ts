@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
     // Forward the request to the Python backend
     // Ensure your Python backend is running on http://localhost:8000
-    const backendResponse = await fetch('http://localhost:8000/calculate-mmr', {
+    const backendResponse = await fetch('https://mmr-back.onrender.com', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

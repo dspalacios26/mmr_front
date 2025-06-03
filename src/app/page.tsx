@@ -189,43 +189,37 @@ export default function HomePage() {
     const currentSummonerName = parts[0]?.trim() || '';
     const currentTagLine = parts[1]?.trim() || '';
 
-    // Use currentSummonerName and currentTagLine for validation before calling validateInputs
-    // or adjust validateInputs to take them as parameters if preferred.
-    // For simplicity, we'll rely on validateInputs to re-parse.
     if (!validateInputs()) {
       return;
     }
 
     setIsLoading(true);
-    setMmrResult(null); // Clear previous results
+    setMmrResult(null);
     setShowResultContainer(false);
     setShowRankComparison(false);
 
     const queueTypeMap = {
-      solo: 420, // From your Python backend QueueType Enum
+      solo: 420,
       flex: 440
     };
 
     try {
       const response = await fetch('/api/calculate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          summonerName: currentSummonerName, // Use parsed value
-          tagLine: currentTagLine, // Use parsed value
+          summonerName: currentSummonerName,
+          tagLine: currentTagLine,
           region: selectedRegion?.value,
           queueType: activeQueue ? queueTypeMap[activeQueue as 'solo' | 'flex'] : undefined,
         }),
       });
 
-      const result = await response.json() as ApiResponse;
+      const result = (await response.json()) as ApiResponse;
 
       if (result.success && result.data) {
         setMmrResult(result.data);
         setShowResultContainer(true);
-        // Delay showing rank comparison for a smoother effect
         setTimeout(() => setShowRankComparison(true), 300);
       } else {
         setErrorMessage(result.error || "An unknown error occurred.");

@@ -32,7 +32,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: responseData.error || `Backend request failed with status ${backendResponse.status}` }, { status: backendResponse.status });
     }
 
-    return NextResponse.json(responseData, { status: 200 });
+    return NextResponse.json({
+      success: true,
+      mmr: responseData.mmr
+    }, { status: 200 });
 
   } catch (error) {
     console.error('API route error:', error);

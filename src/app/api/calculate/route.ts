@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      mmr: responseData.mmr
+      mmr: responseData
     }, { status: 200 });
 
   } catch (error) {
